@@ -1,11 +1,15 @@
 package xyz.xingcang.gmalllogger.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 //import org.slf4j.LoggerFactory;
 import org.apache.log4j.spi.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.xingcang.gmall_constants.TopicConstants;
 
 /**
  * @author xingcang
@@ -30,11 +34,19 @@ public class LoggerController {
         return "success";
     }
 
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
+
+
     @RequestMapping("log")
     public String getLogger(@RequestParam("logString") String logString) {
-        log.info(logString);
+        JSONObject jsonObject = JSONObject.parseObject(logString);
+        jsonObject.put("ts", System.currentTimeMillis());
+        String jsonStr = jsonObject.toString();
+        log.info(jsonStr);
+        if ("startup".equals(jsonObject.getString("type"))) {
+            kafkaTemplate.send(TopicConstants.KAFKA_TOPIC_STARTUP, jsonStr);
+        } else kafkaTemplate.send(TopicConstants.KAFKA_TOPIC_EVENT, jsonStr);
         return "success";
     }
-
-
 }

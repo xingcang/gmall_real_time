@@ -10,6 +10,7 @@
         <module name="gmall-mocker" />
         <module name="gmall-common" />
         <module name="gmall-logger" />
+        <module name="gmall-realtime" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
       <module name="gmall-common" options="-parameters" />
       <module name="gmall-logger" options="-parameters" />
       <module name="gmall-mocker" options="-parameters" />
+      <module name="gmall-realtime" options="-parameters" />
     </option>
   </component>
 </project>
