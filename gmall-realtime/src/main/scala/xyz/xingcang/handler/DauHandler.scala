@@ -20,14 +20,15 @@ object DauHandler {
         filteredByMidsDStream.foreachRDD(
             rdd => {
                 rdd.foreachPartition {
-                    val jedisClient: Jedis = RedisUtil.getJedisClient
-                    iter =>
+                    iter => {
+                        val jedisClient: Jedis = RedisUtil.getJedisClient
                         iter.foreach(
                             log => {
                                 jedisClient.sadd(s"DAD:${log.logDate}", log.mid)
                             }
                         )
-                    jedisClient.close()
+                        jedisClient.close()
+                        }
                 }
             }
         )

@@ -7,18 +7,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="gmall-mocker" />
         <module name="gmall-common" />
-        <module name="gmall-logger" />
+        <module name="gmall-mocker" />
         <module name="gmall-realtime" />
+        <module name="gmall-logger" />
+        <module name="gmall-canal" />
+        <module name="gmall-publish" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="gmall-publisher" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gmall-canal" options="-parameters" />
       <module name="gmall-common" options="-parameters" />
       <module name="gmall-logger" options="-parameters" />
       <module name="gmall-mocker" options="-parameters" />
+      <module name="gmall-publish" options="-parameters" />
+      <module name="gmall-publisher" options="-parameters" />
       <module name="gmall-realtime" options="-parameters" />
     </option>
   </component>

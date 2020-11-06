@@ -1,7 +1,6 @@
 package xyz.xingcang.util
 
 import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
 import java.util.Properties
 
 /**
@@ -9,11 +8,11 @@ import java.util.Properties
  * @create 2020-11-05 1:44 PM
  */
 object PropertiesUtil {
-    def load(propertiesName: String) = {
-        val properties = new Properties()
-        properties.load(new InputStreamReader(
-            Thread.currentThread().getContextClassLoader.getResourceAsStream(
-                "propertiesName"), StandardCharsets.UTF_8))
-        properties
+
+    def load(propertieName:String): Properties ={
+        val prop=new Properties()
+        prop.load(new InputStreamReader(Thread.currentThread().getContextClassLoader.getResourceAsStream(propertieName) , "UTF-8"))
+        prop
     }
 }
+
