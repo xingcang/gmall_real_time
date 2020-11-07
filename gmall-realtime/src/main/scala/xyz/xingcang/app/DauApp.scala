@@ -26,7 +26,6 @@ object DauApp {
         val sc = new SparkContext(new SparkConf().setAppName("SparkTest").setMaster("local[*]"))
         val ssc = new StreamingContext(sc, spark.streaming.Seconds(3))
         val properties: Properties = PropertiesUtil.load("config.properties")
-
         // 2. get kafka Stream
         val kafkaDStream: InputDStream[ConsumerRecord[String, String]] = MyKafkaUtil.getKafkaStream(TopicConstants.KAFKA_TOPIC_STARTUP, ssc)
 
@@ -56,7 +55,7 @@ object DauApp {
         // 7. save log to phoenix
         filteredByMidsDStream.foreachRDD(
             rdd => {
-                rdd.saveToPhoenix("GMALL200621",
+                rdd.saveToPhoenix("GMALL200621_DAU",
                     Seq("MID", "UID", "APPID", "AREA", "OS", "CH", "TYPE", "VS", "LOGDATE", "LOGHOUR", "TS"),
                     HBaseConfiguration.create(),
                     Some(properties.getProperty("zookeeper.servers.list") + ":" + properties.getProperty("zookeeper.server.port"))
