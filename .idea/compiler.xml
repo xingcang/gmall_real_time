@@ -7,11 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dw-chart" />
         <module name="gmall-common" />
-        <module name="gmall-mocker" />
+        <module name="dw-chart" />
         <module name="gmall-realtime" />
+        <module name="gmall-mocker" />
         <module name="gmall-logger" />
+        <module name="gmall-es" />
         <module name="gmall-publish" />
         <module name="gmall-canal" />
       </profile>
@@ -24,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gmall-canal" options="-parameters" />
       <module name="gmall-common" options="-parameters" />
+      <module name="gmall-es" options="-parameters" />
       <module name="gmall-logger" options="-parameters" />
       <module name="gmall-mocker" options="-parameters" />
       <module name="gmall-publish" options="-parameters" />
