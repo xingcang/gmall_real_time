@@ -58,13 +58,21 @@ public class CanalClient {
 
     private static void handler(String tableName, CanalEntry.EventType eventType, List<CanalEntry.RowData> rowDataList) {
         if ("order_info".equals(tableName) && CanalEntry.EventType.INSERT == eventType) {
-            for (CanalEntry.RowData rowData : rowDataList) {
-                JSONObject jsonObject = new JSONObject();
-                for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
-                    jsonObject.put(column.getName(), column.getValue());
-                }
-                MyKafkaSender.Send(TopicConstants.GMALL_ORDER_INFO, jsonObject.toJSONString());
+            RowDataToKafka(TopicConstants.GMALL_ORDER_INFO, rowDataList);
+        }else if ("user_info".equals(tableName) && (CanalEntry.EventType.INSERT == eventType || CanalEntry.EventType.UPDATE == eventType)){
+            RowDataToKafka(TopicConstants.GMALL_USER_INFO, rowDataList);
+        }else if ("order_detail".equals(tableName) && CanalEntry.EventType.INSERT == eventType) {
+            RowDataToKafka(TopicConstants.GMALL_ORDER_DETAIL, rowDataList);
+        }
+    }
+
+    private static void RowDataToKafka(String topic, List<CanalEntry.RowData> rowDataList) {
+        for (CanalEntry.RowData rowData : rowDataList) {
+            JSONObject jsonObject = new JSONObject();
+            for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
+                jsonObject.put(column.getName(), column.getValue());
             }
+            MyKafkaSender.Send(topic, jsonObject.toJSONString());
         }
     }
 }

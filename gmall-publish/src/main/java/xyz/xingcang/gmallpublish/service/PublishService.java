@@ -1,5 +1,6 @@
 package xyz.xingcang.gmallpublish.service;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -11,5 +12,5 @@ public interface PublishService {
     public Map getDauTotalHourMap(String date);
     public Double getOrderTotal(String date);
     public Map getOrderTotalHourMap(String date);
-
+    public String getSaleDetail(String date, int startPage, int size, String keyword) throws IOException;
 }
